@@ -1,0 +1,14 @@
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.mo
+**/*.md
+
+.idea
+.venv
+.git
+.gitignore
+.docker
+
+Dockerfile
+db.sqlite3

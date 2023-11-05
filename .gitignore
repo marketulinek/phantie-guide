@@ -1,2 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
 # PyCharm
 .idea/
+
+# Environments
+.env
+venv/
+
+# Django stuff
+*.log
+*.pyc
+db.sqlite3
+media
