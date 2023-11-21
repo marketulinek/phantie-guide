@@ -1,14 +1,14 @@
 from enum import Enum
 
 
-class ResultStatusTypes(Enum):
+class BootstrapColorTypes(Enum):
     SUCCESS = 'success'
     WARNING = 'warning'
     DANGER = 'danger'
     DARK = 'dark'
 
 
-class ResultSvgIconTypes(Enum):
+class BootstrapSvgIconTypes(Enum):
     SMILE = {
         'class': 'smile',
         'path': 'M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z'
@@ -28,20 +28,20 @@ class ResultSvgIconTypes(Enum):
 
 
 class SuccessResultType:
-    color_class = ResultStatusTypes.SUCCESS.value
-    svg_data = ResultSvgIconTypes.SMILE.value
+    color_class = BootstrapColorTypes.SUCCESS.value
+    svg_data = BootstrapSvgIconTypes.SMILE.value
 
 
 class WarningResultType:
-    color_class = ResultStatusTypes.WARNING.value
-    svg_data = ResultSvgIconTypes.NEUTRAL.value
+    color_class = BootstrapColorTypes.WARNING.value
+    svg_data = BootstrapSvgIconTypes.NEUTRAL.value
 
 
 class BadResultType:
-    color_class = ResultStatusTypes.DANGER.value
-    svg_data = ResultSvgIconTypes.FROWN.value
+    color_class = BootstrapColorTypes.DANGER.value
+    svg_data = BootstrapSvgIconTypes.FROWN.value
 
 
 class NotWorkingResultType:
-    color_class = ResultStatusTypes.DARK.value
-    svg_data = ResultSvgIconTypes.DIZZY.value
+    color_class = BootstrapColorTypes.DARK.value
+    svg_data = BootstrapSvgIconTypes.DIZZY.value
