@@ -1,4 +1,8 @@
+import logging
 import requests
+
+
+logger = logging.getLogger(__name__)
 
 
 class RepoAnalyzer:
@@ -25,7 +29,9 @@ class RepoAnalyzer:
     def analyze(self):
         try:
             if not self._rate_limit_ok():
-                self._save_error('GitHub API rate limit exceeded')
+                msg = 'GitHub API rate limit exceeded'
+                self._save_error(msg)
+                logger.info(msg)
                 return False
 
             response = self._make_api_request(self.GITHUB_API_URL.format(self.username_repo))
@@ -44,7 +50,7 @@ class RepoAnalyzer:
 
             return self.results
         except Exception as e:
-            print(f"An error occurred: {e}")
+            logger.error(f"An error occurred: {e}")
             return False
 
     def _rate_limit_ok(self):
@@ -53,7 +59,7 @@ class RepoAnalyzer:
             rate_limit = int(r.json()['resources']['core']['remaining'])
             return rate_limit > 0
         except Exception as e:
-            print(f"An error occurred while checking rate limit: {e}")
+            logger.error(f"An error occurred while checking rate limit: {e}")
             return False
 
     def _make_api_request(self, url):
