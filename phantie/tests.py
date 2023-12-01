@@ -31,3 +31,21 @@ class RepoAnalyzerTests(TestCase):
         analyzer = RepoAnalyzer('testuser/testrepo')
         rate_limit_ok = analyzer._rate_limit_ok()
         self.assertFalse(rate_limit_ok)
+        # TODO: check error list
+
+    def test_analyze_success(self):
+        """Test analyze method for successful case."""
+        self.mock_requests_get.side_effect = [
+            self.create_mock_response(200, {'resources': {'core': {'remaining': 55}}}),
+            self.create_mock_response(200, {'description': 'Test repo', 'homepage': 'http://test.com', 'open_issues_count': 5, 'fork': False}),
+        ]
+
+        analyzer = RepoAnalyzer('testuser/testrepo')
+        results = analyzer.analyze()
+
+        expected_results = [
+            {'label': 'Description is ok', 'status': 'success'},
+            {'label': 'Homepage is ok', 'status': 'success'},
+            {'label': 'The repository has 5 opened issues and/or pull requests', 'status': 'danger'},
+        ]
+        self.assertEqual(results, expected_results)
