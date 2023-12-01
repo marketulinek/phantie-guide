@@ -2,6 +2,8 @@ from django.test import TestCase
 from unittest.mock import patch, MagicMock
 from phantie.analyzers import RepoAnalyzer
 
+import logging
+
 
 class RepoAnalyzerTests(TestCase):
 
@@ -9,6 +11,8 @@ class RepoAnalyzerTests(TestCase):
         patcher = patch('phantie.analyzers.requests.get')
         self.mock_requests_get = patcher.start()
         self.addCleanup(patcher.stop)
+
+        logging.disable(logging.INFO)
 
     def create_mock_response(self, status_code, json_data):
         mock_response = MagicMock()
@@ -31,7 +35,10 @@ class RepoAnalyzerTests(TestCase):
         analyzer = RepoAnalyzer('testuser/testrepo')
         rate_limit_ok = analyzer._rate_limit_ok()
         self.assertFalse(rate_limit_ok)
-        # TODO: check error list
+
+        results = analyzer.analyze()
+        expected_errors = ['GitHub API rate limit exceeded']
+        self.assertEqual(analyzer.errors, expected_errors)
 
     def test_analyze_success(self):
         """Test analyze method for successful case."""
