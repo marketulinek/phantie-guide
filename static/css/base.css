@@ -1,0 +1,12 @@
+body {
+    background-color: rgba(0, 0, 0, .1);
+}
+.sub-container {
+    max-width: 720px;
+}
+#speaking-bubble {
+    position: absolute; margin: 0px;
+}
+#speaking-bubble .popover-arrow {
+    position: absolute; top: 15px;
+}
