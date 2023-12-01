@@ -49,3 +49,17 @@ class RepoAnalyzerTests(TestCase):
             {'label': 'The repository has 5 opened issues and/or pull requests', 'status': 'danger'},
         ]
         self.assertEqual(results, expected_results)
+
+    def test_analyze_not_found(self):
+        """Test analyze method for repository not found case."""
+        self.mock_requests_get.side_effect = [
+            self.create_mock_response(200, {'resources': {'core': {'remaining': 55}}}),
+            self.create_mock_response(404, {'message': 'Not Found', 'documentation_url': '...'}),
+        ]
+
+        analyzer = RepoAnalyzer('testuser/testrepo')
+        results = analyzer.analyze()
+        self.assertFalse(results)
+
+        expected_errors = ['Repository not found']
+        self.assertEqual(analyzer.errors, expected_errors)
